@@ -10,7 +10,6 @@ import {
 import { Button } from "@/components/ui/button"
 import { ShoppingCartIcon, UserCircleIcon } from "@heroicons/react/24/solid"
 import Link from "next/link"
-import { useBreakpoints } from "@/hooks/breakpoints"
 
 interface NavigationItem {
     title: string
@@ -128,19 +127,18 @@ const links: NavigationItem[] = [{
 }]
 
 export default function Navbar() {
-    const breakpoint = useBreakpoints()()
     return (
-        <div className="h-[72px] w-full bg-white border-b border-neutral-200">
+        <div className="h-[72px] sticky top-0 z-10 w-full bg-white border-b border-neutral-200">
             <div className="container h-full flex flex-row justify-between items-center gap-6">
                 {/* LOGO */}
                 <h1 className="text-left text-2xl font-bold text-neutral-900">Isya Mode</h1>
                 <div className="flex flex-row grow items-center md:justify-between">
                     {/* NAVIGATIONS */}
-                    {breakpoint !== 'sm' && <NavigationMenu>
+                    <NavigationMenu className="hidden md:block">
                         <NavigationMenuList>
                             {...links.map(link => (
                                 <NavigationMenuItem key={link.title}>
-                                    <NavigationMenuTrigger>{link.title}</NavigationMenuTrigger>
+                                    <NavigationMenuTrigger className="text-sm font-medium uppercase tracking-wide">{link.title}</NavigationMenuTrigger>
                                     <NavigationMenuContent>
                                         <div className="w-[512px] p-4">
                                             <div className="grid grid-cols-2 gap-2">
@@ -160,7 +158,7 @@ export default function Navbar() {
                                 </NavigationMenuItem>
                             ))}
                         </NavigationMenuList>
-                    </NavigationMenu>}
+                    </NavigationMenu>
                     <div className="flex flex-row items-center gap-2">
                         {/* CART */}
                         <Button variant="link">
